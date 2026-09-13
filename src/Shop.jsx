@@ -25,9 +25,24 @@ const fetchItems = () => {
 
 const Shop = () => {
   const { items, error, loading } = fetchItems();
+  const [quantities, setQuantities] = useState({});
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>A network error was encountered</p>;
+
+  function removeItem(id) {
+    setQuantities(prev => ({
+      ...prev,
+      [id]: Math.max((prev[id] || 0) - 1, 0)
+    }));
+  }
+
+  function addItem(id) {
+    setQuantities(prev => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1
+    }));
+  }
 
   return (
     <div className="items-container">
@@ -40,9 +55,9 @@ const Shop = () => {
           <div>£{item.price}</div>
           <div>{item.description}</div>
           <div className="buttons-container">
-            <button>-</button>
-            <div>0</div>
-            <button>+</button>
+            <button onClick={() => removeItem(item.id)}>-</button>
+            <div>{quantities[item.id] || 0}</div>
+            <button onClick={() => addItem(item.id)}>+</button>
           </div>
           <div><button>Add to cart</button></div>
         </div>
