@@ -4,6 +4,25 @@
     --RockSaltFont: "Rock Salt", cursive;
 }
 
+ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+li {
+    display: flex;
+    gap: 1rem;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .shop-name {
     font-family: var(--RockSaltFont);
 }
