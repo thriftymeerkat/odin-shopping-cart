@@ -1,0 +1,16 @@
+.items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.item > img {
+    width: 100%;
+}
+
+.buttons-container {
+    display: flex;
+    gap: .5rem;
+}
