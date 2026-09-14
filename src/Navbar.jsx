@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import './styles/Navbar.css'
+import './styles/Navbar.css';
 
-const Navbar = () => {
+const Navbar = ( { cart } ) => {
   return (
     <div>
       <nav>
@@ -11,7 +11,7 @@ const Navbar = () => {
           </li>
           <li>
               <Link to="/shop">Shop</Link>
-              <Link to="/cart">Cart</Link>
+              <Link to="/cart">Cart ({cart.length})</Link>
           </li>
         </ul>
       </nav>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router";
 import './styles/shop.css';
 
 const fetchItems = () => {
@@ -26,22 +27,30 @@ const fetchItems = () => {
 const Shop = () => {
   const { items, error, loading } = fetchItems();
   const [quantities, setQuantities] = useState({});
+  const { cart, setCart } = useOutletContext();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>A network error was encountered</p>;
 
-  function removeItem(id) {
+  function decreaseQuantity(id) {
     setQuantities(prev => ({
       ...prev,
       [id]: Math.max((prev[id] || 1) - 1, 1)
     }));
   }
 
-  function addItem(id) {
+  function increaseQuantity(id) {
     setQuantities(prev => ({
       ...prev,
       [id]: (prev[id] || 1) + 1
     }));
+  }
+
+  function addItem(id, quantity) {
+    setCart([{
+      id: id,
+      quantity: quantity
+    }])
   }
 
   return (
@@ -55,11 +64,13 @@ const Shop = () => {
           <div>£{item.price}</div>
           <div>{item.description}</div>
           <div className="buttons-container">
-            <button onClick={() => removeItem(item.id)}>-</button>
+            <button onClick={() => decreaseQuantity(item.id)}>-</button>
             <div>{quantities[item.id] || 1}</div>
-            <button onClick={() => addItem(item.id)}>+</button>
+            <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
-          <div><button>Add to cart</button></div>
+          <div>
+            <button onClick={() => addItem(item.id, quantities[item.id] || 1)}>Add to cart</button>
+          </div>
         </div>
       ))}
     </div>
