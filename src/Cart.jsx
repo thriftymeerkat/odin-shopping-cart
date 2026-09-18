@@ -3,12 +3,32 @@ import { useOutletContext, Link } from "react-router";
 
 const Cart = ( ) => {
   const { cart, setCart } = useOutletContext();
-    const [totalAmount, setTotal] = useState(0);
+  const [totalAmount, setTotal] = useState(0);
 
-    useEffect(() => {
-      const total = Object.values(cart).reduce((accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity, 0);
-      setTotal(total);
-    }, [cart]); 
+  useEffect(() => {
+    const total = Object.values(cart).reduce((accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity, 0);
+    setTotal(total);
+  }, [cart]); 
+
+  function decreaseQuantity(id) {
+    setCart(prev => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        quantity: prev[id].quantity - 1
+      }
+    }));
+  }
+
+  function increaseQuantity(id) {
+    setCart(prev => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        quantity: prev[id].quantity + 1
+      }
+    }));
+  }
 
   return (
     Object.keys(cart).length > 0 ? (
@@ -20,11 +40,11 @@ const Cart = ( ) => {
               <div>{item.title}</div>
               <div>Price: ${item.price}</div>
               <div className="buttons-container">
-                <button>-</button>
+                <button onClick={() => decreaseQuantity(item.id)}>-</button>
                 <div>
                   <input type="number" value={item.quantity} readOnly />
                 </div>
-                <button>+</button>
+                <button onClick={() => increaseQuantity(item.id)}>+</button>
               </div>
               <div>Subtotal: £{item.price * item.quantity}</div>
             </div>
