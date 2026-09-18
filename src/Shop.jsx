@@ -46,12 +46,15 @@ const Shop = () => {
     }));
   }
 
-  function addItem(id, quantity) {
+  function addItem(id, quantity, title, image, price) {
     setCart(prev => ({
       ...prev,
       [id]: {
         id: id, 
         quantity: quantity + (prev[id]?.quantity || 0),
+        title: title,
+        image: image,
+        price: price,
       }
     }))
   }
@@ -68,11 +71,17 @@ const Shop = () => {
           <div>{item.description}</div>
           <div className="buttons-container">
             <button onClick={() => decreaseQuantity(item.id)}>-</button>
-            <div>{quantities[item.id] || 1}</div>
+            <div>
+              <input 
+                type="number"
+                value={quantities[item.id] || 1}
+                readOnly
+              />
+            </div>
             <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
           <div>
-            <button onClick={() => addItem(item.id, quantities[item.id] || 1)}>Add to cart</button>
+            <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
           </div>
         </div>
       ))}
