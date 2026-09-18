@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 import Navbar from "./Navbar";
 
 const App = () => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({});
 
   return (
     <>
