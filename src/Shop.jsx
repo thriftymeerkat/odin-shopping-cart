@@ -47,10 +47,13 @@ const Shop = () => {
   }
 
   function addItem(id, quantity) {
-    setCart([{
-      id: id,
-      quantity: quantity
-    }])
+    setCart(prev => ({
+      ...prev,
+      [id]: {
+        id: id, 
+        quantity: quantity + (prev[id]?.quantity || 0),
+      }
+    }))
   }
 
   return (
