@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useOutletContext } from "react-router";
+import { useOutletContext, Link } from "react-router";
 
 const Cart = ( ) => {
   const { cart, setCart } = useOutletContext();
@@ -11,32 +11,33 @@ const Cart = ( ) => {
     }, [cart]); 
 
   return (
-    <>
-    <div className="cart-container">
-      {Object.values(cart).map((item) => (
-        <div className="item" key={item.id}>
-          <img 
-            src={item.image}
-          />
-          <div>{item.title}</div>
-          <div>Price: ${item.price}</div>
-          <div className="buttons-container">
-            <button>-</button>
-            <div>
-              <input 
-                type="number"
-                value={item.quantity}
-                readOnly
-              />
+    Object.keys(cart).length > 0 ? (
+      <>
+        <div className="cart-container">
+          {Object.values(cart).map((item) => (
+            <div className="item" key={item.id}>
+              <img src={item.image} />
+              <div>{item.title}</div>
+              <div>Price: ${item.price}</div>
+              <div className="buttons-container">
+                <button>-</button>
+                <div>
+                  <input type="number" value={item.quantity} readOnly />
+                </div>
+                <button>+</button>
+              </div>
+              <div>Subtotal: £{item.price * item.quantity}</div>
             </div>
-            <button>+</button>
-          </div>
-          <div>Subtotal: £{item.price * item.quantity}</div>
+          ))}
         </div>
-      ))}
-    </div>
-    <div>Total: ${totalAmount}</div>
-    </>
+        <div>Total: £{totalAmount}</div>
+      </>
+    ) : (
+      <div>
+        <p>Your cart is empty!</p>
+        <Link to="/shop">Go to shop</Link>
+      </div>
+    )
   );
 };
 
