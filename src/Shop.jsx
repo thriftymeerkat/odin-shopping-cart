@@ -67,7 +67,7 @@ const Shop = () => {
             src={item.image}
           />
           <div>{item.title}</div>
-          <div>£{item.price}</div>
+          <div>£{item.price.toFixed(2)}</div>
           <div>{item.description}</div>
           <div className="buttons-container">
             <button onClick={() => decreaseQuantity(item.id)}>-</button>

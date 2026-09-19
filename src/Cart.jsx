@@ -6,7 +6,7 @@ const Cart = ( ) => {
   const totalAmount = Object.values(cart).reduce(
     (accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity,
     0
-  );
+  ).toFixed(2);
 
   function getQuantity(id) {
     return cart[id]?.quantity ?? 0;
@@ -44,6 +44,10 @@ const Cart = ( ) => {
     }));
   }
 
+  function calculateSubtotal(price, quantity) {
+    return (price * quantity).toFixed(2);
+  }
+
   return (
     Object.keys(cart).length > 0 ? (
       <>
@@ -53,7 +57,7 @@ const Cart = ( ) => {
               <button onClick={() => removeItem(item.id)}>Remove</button>
               <img src={item.image} />
               <div>{item.title}</div>
-              <div>Price: £{item.price}</div>
+              <div>Price: £{item.price.toFixed(2)}</div>
               <div className="buttons-container">
                 <button onClick={() => decreaseQuantity(item.id)}>-</button>
                 <div>
@@ -65,7 +69,7 @@ const Cart = ( ) => {
                 </div>
                 <button onClick={() => increaseQuantity(item.id)}>+</button>
               </div>
-              <div>Subtotal: £{item.price * item.quantity}</div>
+              <div>Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
             </div>
           ))}
         </div>
