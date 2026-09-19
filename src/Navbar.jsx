@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+
 import { Link } from "react-router";
 import './styles/Navbar.css';
 
 const Navbar = ( { cart } ) => {
-  const [totalQuantity, setTotal] = useState(0);
-
-  useEffect(() => {
-    const total = Object.values(cart).reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
-    setTotal(total);
-  }, [cart]); 
+  const totalQuantity = Object.values(cart).reduce(
+    (accumulator, currentValue) => accumulator + currentValue.quantity,
+    0
+  );
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router";
 import './styles/shop.css';
 
-const fetchItems = () => {
+const useFetchItems = () => {
   const [items, setItems] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,9 +25,9 @@ const fetchItems = () => {
 };
 
 const Shop = () => {
-  const { items, error, loading } = fetchItems();
+  const { items, error, loading } = useFetchItems();
   const [quantities, setQuantities] = useState({});
-  const { cart, setCart } = useOutletContext();
+  const { setCart } = useOutletContext();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>A network error was encountered</p>;
@@ -73,7 +73,7 @@ const Shop = () => {
             <button onClick={() => decreaseQuantity(item.id)}>-</button>
             <div>
               <input 
-                type="number"
+                type="text"
                 value={quantities[item.id] || 1}
                 readOnly
               />
