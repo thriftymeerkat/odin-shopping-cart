@@ -8,7 +8,7 @@ const useFetchItems = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://fakestoreapi.com/products/")
       .then((response) => {
         if (response.status >= 400) {
           throw new Error("server error");
@@ -29,8 +29,8 @@ const Shop = () => {
   const [quantities, setQuantities] = useState({});
   const { setCart } = useOutletContext();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>A network error was encountered</p>;
+  if (loading) return <section><div className="loading-container"><div class="loader"></div></div></section>;
+  if (error) return <section><div className="error-container"><p>A network error was encountered!</p></div></section>;
 
   function decreaseQuantity(id) {
     setQuantities(prev => ({
@@ -60,32 +60,39 @@ const Shop = () => {
   }
 
   return (
-    <div className="items-container">
-      {items.map((item) => (
-        <div className="item" key={item.id}>
-          <img 
-            src={item.image}
-          />
-          <div>{item.title}</div>
-          <div>£{item.price.toFixed(2)}</div>
-          <div>{item.description}</div>
-          <div className="buttons-container">
-            <button onClick={() => decreaseQuantity(item.id)}>-</button>
-            <div>
-              <input 
-                type="text"
-                value={quantities[item.id] || 1}
-                readOnly
+    <section>
+      <div className="items-container">
+        {items.map((item) => (
+          <div className="item" key={item.id}>
+            <div className="item-image-container">
+              <img 
+                src={item.image}
               />
             </div>
-            <button onClick={() => increaseQuantity(item.id)}>+</button>
+            <div className="item-desc-container">
+              <div className="item-tite"><p>{item.title}</p></div>
+              <div className="item-price"><p>£{item.price.toFixed(2)}</p></div>
+              <div className="item-desc"><p>{item.description.length > 250 ? item.description.slice(0,250) + "..." : item.description }</p></div>
+              <div className="quantity-btn-container">
+                <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
+                <div className="item-quantity">
+                  <input 
+                    type="text"
+                    value={quantities[item.id] || 1}
+                    readOnly
+                  />
+                </div>
+                <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
+              </div>
+              <div className="add-to-cart-btn-container">
+                <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
+              </div>
+            </div>
           </div>
-          <div>
-            <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
+
   );
 };
 

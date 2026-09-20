@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root {
     --RobotoMono: "Roboto Mono", monospace;
@@ -62,6 +62,7 @@ ul,
 li {
   list-style: none;
   font-family: var(--Inter);
+  font-size: 1rem;
 }
 
 li a:hover {
@@ -70,6 +71,7 @@ li a:hover {
 
 .shop-name {
     font-family: var(--RobotoMono);
+    font-size: 2rem;
 }
 
 @media only screen and (min-width: 768px) {

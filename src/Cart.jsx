@@ -51,35 +51,39 @@ const Cart = ( ) => {
   return (
     Object.keys(cart).length > 0 ? (
       <>
-        <div className="cart-container">
-          {Object.values(cart).map((item) => (
-            <div className="item" key={item.id}>
-              <button onClick={() => removeItem(item.id)}>Remove</button>
-              <img src={item.image} />
-              <div>{item.title}</div>
-              <div>Price: £{item.price.toFixed(2)}</div>
-              <div className="buttons-container">
-                <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                <div>
-                  <input 
-                    type="text" 
-                    value={item.quantity} 
-                    readOnly 
-                  />
+        <section>
+          <div className="cart-container">
+            {Object.values(cart).map((item) => (
+              <div className="item" key={item.id}>
+                <button onClick={() => removeItem(item.id)}>Remove</button>
+                <img src={item.image} />
+                <div>{item.title}</div>
+                <div>Price: £{item.price.toFixed(2)}</div>
+                <div className="buttons-container">
+                  <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                  <div>
+                    <input 
+                      type="text" 
+                      value={item.quantity} 
+                      readOnly 
+                    />
+                  </div>
+                  <button onClick={() => increaseQuantity(item.id)}>+</button>
                 </div>
-                <button onClick={() => increaseQuantity(item.id)}>+</button>
+                <div>Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
               </div>
-              <div>Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
-            </div>
-          ))}
-        </div>
-        <div>Total: £{totalAmount}</div>
+            ))}
+          </div>
+          <div>Total: £{totalAmount}</div>
+        </section>
       </>
     ) : (
-      <div>
-        <p>Your cart is empty!</p>
-        <Link to="/shop">Go to shop</Link>
-      </div>
+      <section>
+        <div>
+          <p>Your cart is empty!</p>
+          <Link to="/shop">Go to shop</Link>
+        </div>
+      </section>
     )
   );
 };
