@@ -4,6 +4,9 @@
     --RobotoMono: "Roboto Mono", monospace;
     --Inter: "Inter", sans-serif;
     --padding: 20px;
+    --orange: rgb(248,234,221);
+    --darkGrey: rgb(64,64,64);
+    --black: rgb(0,0,0);
 }
 
 *,
@@ -16,12 +19,12 @@
 
 nav {
     padding: var(--padding);
-    background-color: rgb(248, 234, 221);
+    background-color: var(--orange);
 }
 
 nav,
 nav a {
-    color: rgb(64,64,64);
+    color: var(--darkGrey);
     text-decoration: none;
 }
 
@@ -34,8 +37,8 @@ ul li:not(:first-child) a::before {
     position: absolute;
     bottom: -10px;
     width: 0%;
-    height: 2px;
-    background-color: rgb(0, 0, 0);
+    height: .125rem;
+    background-color: var(--black);
     transition: width 300ms ease-in-out;
 }
 
@@ -63,7 +66,7 @@ li {
 }
 
 li a:hover {
-    color: rgb(0, 0, 0);
+    color: var(--black);
 }
 
 .shop-name {
