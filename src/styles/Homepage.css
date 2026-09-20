@@ -1,0 +1,13 @@
+.homepage-container {
+    display: flex;
+    min-height: 100dvh;
+    background-image: url("../assets/tem-rysh-F6-U5fGAOik-unsplash-mobile.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .homepage-container {
+        background-image: url("../assets/tem-rysh-F6-U5fGAOik-unsplash.jpg");
+    }
+}

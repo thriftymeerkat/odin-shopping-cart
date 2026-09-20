@@ -9,7 +9,7 @@ const Navbar = ( { cart } ) => {
   );
 
   return (
-    <div>
+    <div className="navbar-container">
       <nav>
         <ul>
           <li>

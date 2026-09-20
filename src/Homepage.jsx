@@ -1,3 +1,5 @@
+import './styles/Homepage.css';
+
 const App = () => {
   return (
     <>
