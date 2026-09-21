@@ -7,8 +7,12 @@ const App = () => {
 
   return (
     <>
-      <Navbar cart={cart}/>
-      <Outlet context={{ cart, setCart }}/>
+      <header>
+        <Navbar cart={cart}/>
+      </header>
+      <section>
+        <Outlet context={{ cart, setCart }}/>
+      </section>
     </>
   );
 };

@@ -60,39 +60,36 @@ const Shop = () => {
   }
 
   return (
-    <section>
-      <div className="items-container">
-        {items.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="item-image-container">
-              <img 
-                src={item.image}
-              />
+    <div className="items-container">
+      {items.map((item) => (
+        <div className="item" key={item.id}>
+          <div className="item-image-container">
+            <img 
+              src={item.image}
+            />
+          </div>
+          <div className="item-desc-container">
+            <div className="item-tite"><p>{item.title}</p></div>
+            <div className="item-price"><p>£{item.price.toFixed(2)}</p></div>
+            <div className="item-desc"><p>{item.description.length > 250 ? item.description.slice(0,250) + "..." : item.description }</p></div>
+            <div className="quantity-btn-container">
+              <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
+              <div className="item-quantity">
+                <input 
+                  type="text"
+                  value={quantities[item.id] || 1}
+                  readOnly
+                />
+              </div>
+              <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
             </div>
-            <div className="item-desc-container">
-              <div className="item-tite"><p>{item.title}</p></div>
-              <div className="item-price"><p>£{item.price.toFixed(2)}</p></div>
-              <div className="item-desc"><p>{item.description.length > 250 ? item.description.slice(0,250) + "..." : item.description }</p></div>
-              <div className="quantity-btn-container">
-                <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
-                <div className="item-quantity">
-                  <input 
-                    type="text"
-                    value={quantities[item.id] || 1}
-                    readOnly
-                  />
-                </div>
-                <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
-              </div>
-              <div className="add-to-cart-btn-container">
-                <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
-              </div>
+            <div className="add-to-cart-btn-container">
+              <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
-
+        </div>
+      ))}
+    </div>
   );
 };
 

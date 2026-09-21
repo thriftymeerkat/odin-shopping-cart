@@ -9,22 +9,20 @@ const Navbar = ( { cart } ) => {
   );
 
   return (
-    <header>
-      <div className="navbar-container">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/"><h1 className="shop-name">Shopping Cart</h1></Link>
-            </li>
-            <li>
-                <Link to="/">Home</Link>
-                <Link to="/shop">Shop</Link>
-                <Link to="/cart">Cart ({totalQuantity})</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <div className="navbar-container">
+      <nav>
+        <ul>
+          <li>
+            <Link to="/"><h1 className="shop-name">Shopping Cart</h1></Link>
+          </li>
+          <li>
+              <Link to="/">Home</Link>
+              <Link to="/shop">Shop</Link>
+              <Link to="/cart">Cart ({totalQuantity})</Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 };
 

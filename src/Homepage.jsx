@@ -3,9 +3,7 @@ import './styles/Homepage.css';
 const App = () => {
   return (
     <>
-      <section>
-        <div className="homepage-container"></div>  
-      </section>
+      <div className="homepage-container"></div>
     </>
   );
 };
