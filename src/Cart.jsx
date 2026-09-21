@@ -52,16 +52,23 @@ const Cart = ( ) => {
   return (
     Object.keys(cart).length > 0 ? (
       <>
-        <div className="cart-container">
+        <div className="cart-header">
+          <h2>Your cart</h2>
+        </div>
+        <ul className="cart-container">
           {Object.values(cart).map((item) => (
-            <div className="item" key={item.id}>
-              <button onClick={() => removeItem(item.id)}>Remove</button>
-              <img src={item.image} />
-              <div>{item.title}</div>
-              <div>Price: £{item.price.toFixed(2)}</div>
-              <div className="buttons-container">
+            <li className="cart-item" key={item.id}>
+              <div className="cart-image-remove-container">
+                <div className="image-container">
+                  <img src={item.image} />
+                </div>
+                <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
+              </div>
+              <div className="cart-item-title">{item.title}</div>
+              <div className="cart-item-price">Price: £{item.price.toFixed(2)}</div>
+              <div className="cart-quantity-btn-container">
                 <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                <div>
+                <div className="cart-item-quantity">
                   <input 
                     type="text" 
                     value={item.quantity} 
@@ -70,11 +77,11 @@ const Cart = ( ) => {
                 </div>
                 <button onClick={() => increaseQuantity(item.id)}>+</button>
               </div>
-              <div>Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
-            </div>
+              <div className="cart-item-subtotal">Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
+            </li>
           ))}
-        </div>
-        <div>Total: £{totalAmount}</div>
+        </ul>
+        <div className="total-container">Total: £{totalAmount}</div>
       </>
     ) : (
       <div className="empty-cart-container">

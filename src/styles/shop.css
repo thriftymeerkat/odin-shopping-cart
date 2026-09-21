@@ -5,11 +5,19 @@
     --Inter: "Inter", sans-serif;
     --Manrope: "Manrope", sans-serif;
     --lightGrey: rgb(218,220,224);
+    --darkGrey: rgb(64,64,64);
     --blue: hsl(211,65.9%,92%);
     --darkBlue: hsl(211,65.9%,62%);
     --darkOrange: hsl(29,65.9%,62%);
     --white: rgb(255,255,255);
     --borderRadius: 16px;
+}
+
+.shop-header {
+    font-family: var(--Inter);
+    color: var(--darkGrey);
+    padding: 1rem var(--padding);
+    font-size: 1.25rem;
 }
 
 .items-container {
