@@ -188,4 +188,8 @@
         max-width: 1600px;
         margin: 0 auto;
     }
+
+    .cart-item-title {
+        max-width: 150px;
+    }
 }
