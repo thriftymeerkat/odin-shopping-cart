@@ -18,6 +18,7 @@
     font-family: var(--Inter);
     font-weight: bold;
     font-size: 3rem;
+    text-align: center;
 }
 
 .empty-cart-container a {
