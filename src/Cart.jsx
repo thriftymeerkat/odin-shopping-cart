@@ -52,40 +52,45 @@ const Cart = ( ) => {
   return (
     Object.keys(cart).length > 0 ? (
       <>
-        <div className="cart-header">
-          <h2>Your cart</h2>
-        </div>
-        <ul className="cart-container">
-          {Object.values(cart).map((item) => (
-            <li className="cart-item" key={item.id}>
-              <div className="cart-image-remove-container">
-                <div className="image-container">
-                  <img src={item.image} />
-                </div>
-              </div>
-              <div className="remove-btn-container">
-                <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
-              </div>              
-              <div className="cart-desc-container">
-                <div className="cart-item-title">{item.title}</div>
-                <div className="cart-item-price">Price: £{item.price.toFixed(2)}</div>
-                <div className="cart-quantity-btn-container">
-                  <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
-                  <div className="cart-item-quantity">
-                    <input 
-                      type="text" 
-                      value={item.quantity} 
-                      readOnly 
-                    />
+        <div className="cart-total-container">
+          <div className="cart-header">
+            <h2>Your cart</h2>
+          </div>
+          <ul className="cart-container">
+            {Object.values(cart).map((item) => (
+              <li className="cart-item" key={item.id}>
+                <div className="cart-image-remove-container-full">
+                  <div className="cart-image-remove-container">
+                    <div className="image-container">
+                      <img src={item.image} />
+                    </div>
                   </div>
-                  <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
+                  <div className="remove-btn-container remove-btn-mobile">
+                    
+                    <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
+                  </div>
                 </div>
-                <div className="cart-item-subtotal">Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="total-container">Total: £{totalAmount}</div>
+                <div className="cart-desc-container">
+                  <div className="cart-item-title"><p>{item.title}</p></div>
+                  <div className="cart-item-price"><p>Price: £{item.price.toFixed(2)}</p></div>
+                  <div className="cart-quantity-btn-container">
+                    <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
+                    <div className="cart-item-quantity">
+                      <input 
+                        type="text" 
+                        value={item.quantity} 
+                        readOnly 
+                      />
+                    </div>
+                    <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
+                  </div>
+                  <div className="cart-item-subtotal"><p>Subtotal: £{calculateSubtotal(item.price, item.quantity)}</p></div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="total-container"><p>Total: £{totalAmount}</p></div>
+        </div>
       </>
     ) : (
       <div className="empty-cart-container">
