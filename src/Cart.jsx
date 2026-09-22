@@ -62,22 +62,26 @@ const Cart = ( ) => {
                 <div className="image-container">
                   <img src={item.image} />
                 </div>
+              </div>
+              <div className="remove-btn-container">
                 <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
-              </div>
-              <div className="cart-item-title">{item.title}</div>
-              <div className="cart-item-price">Price: £{item.price.toFixed(2)}</div>
-              <div className="cart-quantity-btn-container">
-                <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                <div className="cart-item-quantity">
-                  <input 
-                    type="text" 
-                    value={item.quantity} 
-                    readOnly 
-                  />
+              </div>              
+              <div className="cart-desc-container">
+                <div className="cart-item-title">{item.title}</div>
+                <div className="cart-item-price">Price: £{item.price.toFixed(2)}</div>
+                <div className="cart-quantity-btn-container">
+                  <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
+                  <div className="cart-item-quantity">
+                    <input 
+                      type="text" 
+                      value={item.quantity} 
+                      readOnly 
+                    />
+                  </div>
+                  <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
                 </div>
-                <button onClick={() => increaseQuantity(item.id)}>+</button>
+                <div className="cart-item-subtotal">Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
               </div>
-              <div className="cart-item-subtotal">Subtotal: £{calculateSubtotal(item.price, item.quantity)}</div>
             </li>
           ))}
         </ul>

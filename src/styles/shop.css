@@ -46,7 +46,6 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     padding: var(--padding);
-    box-sizing: border-box;
     flex: 0 0 auto;
     min-height: 0;
 }
