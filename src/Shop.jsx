@@ -27,26 +27,32 @@ const useFetchItems = () => {
 const Shop = () => {
   const { items, error, loading } = useFetchItems();
   const [quantities, setQuantities] = useState({});
-  const { setCart } = useOutletContext();
+  const [announcement, setAnnouncement] = useState();
+  const { cart, setCart } = useOutletContext();
 
-  if (loading) return <section><div className="loading-container"><div class="loader"></div></div></section>;
-  if (error) return <section><div className="error-container"><p>A network error was encountered!</p></div></section>;
+  if (loading) return <section><div className="shop-header"><h1>Shop</h1></div><div className="loading-container"><div className="loader"></div></div></section>;
+  if (error) return <section><div className="shop-header"><h1>Shop</h1></div><div className="error-container"><p>A network error was encountered!</p></div></section>;
 
-  function decreaseQuantity(id) {
+  function decreaseQuantity(id, title) {
     setQuantities(prev => ({
       ...prev,
       [id]: Math.max((prev[id] || 1) - 1, 1)
     }));
+    const quantity = Math.max((quantities[id] || 1) - 1, 1);
+    setAnnouncement(`${title}, quantity ${quantity}.`)
   }
 
-  function increaseQuantity(id) {
+  function increaseQuantity(id, title) {
     setQuantities(prev => ({
       ...prev,
       [id]: (prev[id] || 1) + 1
     }));
+    const quantity = (quantities[id] || 1) + 1;
+    setAnnouncement(`${title}, quantity ${quantity}.`)
   }
 
   function addItem(id, quantity, title, image, price) {
+    const total = quantity + (cart[id]?.quantity || 0);
     setCart(prev => ({
       ...prev,
       [id]: {
@@ -57,43 +63,51 @@ const Shop = () => {
         price: price,
       }
     }))
+    setAnnouncement(`Added ${quantity} ${title} added to cart, ${total} in cart.`)
   }
 
   return (
     <>
       <div className="shop-header">
-        <h2>Shop</h2>
+        <h1>Shop</h1>
       </div>
-      <div className="items-container">
-        {items.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="item-image-container">
-              <img 
-                src={item.image}
-              />
-            </div>
-            <div className="item-desc-container">
-              <div className="item-tite"><p>{item.title}</p></div>
-              <div className="item-price"><p>£{item.price.toFixed(2)}</p></div>
-              <div className="item-desc"><p>{item.description.length > 250 ? item.description.slice(0,250) + "..." : item.description }</p></div>
-              <div className="quantity-btn-container">
-                <button className="decrease-btn" onClick={() => decreaseQuantity(item.id)}>-</button>
-                <div className="item-quantity">
-                  <input 
-                    type="text"
-                    value={quantities[item.id] || 1}
-                    readOnly
+        <ul className="items-container-ul" role="list">
+          {items.map((item) => (
+            <li key={item.id}>
+              <div className="item">
+                <div className="item-image-container">
+                  <img 
+                    src={item.image}
+                    alt=""
                   />
                 </div>
-                <button className="increase-btn" onClick={() => increaseQuantity(item.id)}>+</button>
+                <div className="item-desc-container">
+                  <div className="item-title"><h2>{item.title}</h2></div>
+                  <div className="item-price"><p>£{item.price.toFixed(2)}</p></div>
+                  <div className="item-desc"><p>{item.description.length > 250 ? item.description.slice(0,250) + "..." : item.description }</p></div>
+                  <div className="quantity-btn-container">
+                    <button className="decrease-btn" onClick={() => decreaseQuantity(item.id, item.title)} aria-label={`Decrease quantity, ${item.title}`}>-</button>
+                    <div className="item-quantity">
+                      <input 
+                        type="text"
+                        value={quantities[item.id] || 1}
+                        readOnly
+                        aria-label={`Quantity, ${item.title}`}
+                      />
+                    </div>
+                    <button className="increase-btn" onClick={() => increaseQuantity(item.id, item.title)} aria-label={`Increase quantity, ${item.title}`}>+</button>
+                  </div>
+                  <div className="add-to-cart-btn-container">
+                    <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)} aria-label={`Add to cart, ${item.title}`}>Add to cart</button>
+                  </div>
+                </div>
               </div>
-              <div className="add-to-cart-btn-container">
-                <button onClick={() => addItem(item.id, quantities[item.id] || 1, item.title, item.image, item.price)}>Add to cart</button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </li>
+          ))}
+        </ul>
+    <div aria-live="polite" aria-atomic="true" className="item-added-alert">
+      {announcement}
+    </div>
     </>
   );
 };

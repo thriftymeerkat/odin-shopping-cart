@@ -1,5 +1,5 @@
+import { Link, NavLink } from "react-router";
 
-import { Link } from "react-router";
 import './styles/Navbar.css';
 
 const Navbar = ( { cart } ) => {
@@ -11,15 +11,11 @@ const Navbar = ( { cart } ) => {
   return (
     <div className="navbar-container">
       <nav>
+        <Link to="/"><div className="shop-name">Shopping Cart</div></Link>
         <ul>
-          <li>
-            <Link to="/"><h1 className="shop-name">Shopping Cart</h1></Link>
-          </li>
-          <li>
-              <Link to="/">Home</Link>
-              <Link to="/shop">Shop</Link>
-              <Link to="/cart">Cart ({totalQuantity})</Link>
-          </li>
+          <li><NavLink to="/" end>Home</NavLink></li>
+          <li><NavLink to="/shop">Shop</NavLink></li>
+          <li><NavLink to="/cart" aria-label={`Cart, ${totalQuantity} items`}>Cart ({totalQuantity})</NavLink></li>
         </ul>
       </nav>
     </div>

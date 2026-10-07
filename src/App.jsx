@@ -10,9 +10,9 @@ const App = () => {
       <header>
         <Navbar cart={cart}/>
       </header>
-      <section>
-        <Outlet context={{ cart, setCart }}/>
-      </section>
+      <main>
+          <Outlet context={{ cart, setCart }}/>
+      </main>
     </>
   );
 };

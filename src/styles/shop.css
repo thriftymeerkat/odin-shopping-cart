@@ -17,10 +17,9 @@
     font-family: var(--Inter);
     color: var(--darkGrey);
     padding: 1rem var(--padding);
-    font-size: 1.25rem;
 }
 
-.items-container {
+.items-container-ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 32px;
@@ -28,10 +27,17 @@
     margin: 0 auto;
     padding: 1rem var(--padding);
     font-family: var(--Manrope);
+    list-style: none;
+}
+
+.items-container-ul > li {
+    display: flex;
+    height: 100%;
 }
 
 .item {
     display: flex;
+    flex: 1;
     flex-direction: column;
     border: 1px solid var(--lightGrey);
     border-radius: var(--borderRadius);
@@ -69,9 +75,11 @@
     border-radius: 0 0 var(--borderRadius) var(--borderRadius);
 }
 
-.item-tite {
+.item-title,
+.item-title h2 {
     font-family: var(--Inter);
     font-weight: bold;
+    font-size: 1rem;
 }
 
 .item-price {
@@ -79,7 +87,8 @@
 }
 
 .item-desc {
-    font-weight: lighter;
+    font-weight: 300;
+    font-size: .875rem;
     flex: 1;
     overflow-wrap: anywhere;
     min-width: 0;
@@ -90,10 +99,20 @@ button {
     font-weight: bold;
     cursor: pointer;
     padding: calc(var(--padding) / 2);
-    outline: none;
     border: none;
     background-color: var(--blue);
     transition: filter 200ms ease;
+}
+
+button,
+.item-quantity input {
+    outline: 2px solid #5699D7;
+}
+
+button:focus-visible,
+input:focus-visible,
+.item-quantity input:focus-visible {
+    outline: 3px solid #D16900;
 }
 
 .decrease-btn {
@@ -130,7 +149,6 @@ button:active {
     font-weight: bold;
     border-radius: 0px;
     border: 2px solid var(--blue);
-    outline: 0;
 }
 
 .add-to-cart-btn-container > button {
@@ -168,6 +186,19 @@ button:active {
     width: 4rem;
     aspect-ratio: 1/1;
     animation: spin 1s linear infinite;
+}
+
+.item-added-alert {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
 
 @keyframes spin {
