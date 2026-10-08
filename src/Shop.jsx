@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router";
 import './styles/shop.css';
 
@@ -25,13 +25,27 @@ const useFetchItems = () => {
 };
 
 const Shop = () => {
+  const TIMEOUT = 5000;
+
   const { items, error, loading } = useFetchItems();
   const [quantities, setQuantities] = useState({});
-  const [announcement, setAnnouncement] = useState();
   const { cart, setCart } = useOutletContext();
+  const [announcement, setAnnouncement] = useState();
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
 
   if (loading) return <section><div className="shop-header"><h1>Shop</h1></div><div className="loading-container"><div className="loader"></div></div></section>;
   if (error) return <section><div className="shop-header"><h1>Shop</h1></div><div className="error-container"><p>A network error was encountered!</p></div></section>;
+
+  function resetAnnouncement() {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setAnnouncement("");
+    }, TIMEOUT);
+  }
 
   function decreaseQuantity(id, title) {
     setQuantities(prev => ({
@@ -39,7 +53,8 @@ const Shop = () => {
       [id]: Math.max((prev[id] || 1) - 1, 1)
     }));
     const quantity = Math.max((quantities[id] || 1) - 1, 1);
-    setAnnouncement(`${title}, quantity ${quantity}.`)
+    setAnnouncement(`${title}, quantity ${quantity}.`);
+    resetAnnouncement();
   }
 
   function increaseQuantity(id, title) {
@@ -49,6 +64,7 @@ const Shop = () => {
     }));
     const quantity = (quantities[id] || 1) + 1;
     setAnnouncement(`${title}, quantity ${quantity}.`)
+    resetAnnouncement();
   }
 
   function addItem(id, quantity, title, image, price) {
@@ -63,7 +79,8 @@ const Shop = () => {
         price: price,
       }
     }))
-    setAnnouncement(`Added ${quantity} ${title} added to cart, ${total} in cart.`)
+    setAnnouncement(`Added ${quantity} ${title} to cart, ${total} in cart.`)
+    resetAnnouncement();
   }
 
   return (
@@ -105,7 +122,7 @@ const Shop = () => {
             </li>
           ))}
         </ul>
-    <div aria-live="polite" aria-atomic="true" className="item-added-alert">
+    <div aria-live="polite" aria-atomic="true" className="item-alert">
       {announcement}
     </div>
     </>
