@@ -1,4 +1,3 @@
-// src/tests/App.test.jsx
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -35,26 +34,27 @@ const renderApp = () => {
 
 describe("App component", () => {
     it("renders the navbar inside the header", () => {
-    renderApp();
-    expect(screen.getByRole("banner")).toBeInTheDocument();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
+        renderApp();
+        expect(screen.getByRole("banner")).toBeInTheDocument();
+        expect(screen.getByRole("navigation")).toBeInTheDocument();
     });
 
     it("renders the matched child route inside main", () => {
-    renderApp();
-    const main = screen.getByRole("main");
-    expect(main).toContainElement(screen.getByRole("heading", { name: /dummy page/i }));
+        renderApp();
+        const main = screen.getByRole("main");
+        expect(main).toContainElement(screen.getByRole("heading", { name: /dummy page/i }));
     });
 
     it("passes cart state to children and the navbar reflects updates", async () => {
-    const user = userEvent.setup();
-    renderApp();
+        const user = userEvent.setup();
+        renderApp();
 
-    const cartLink = screen.getByRole("link", { name: /^cart/i });
-    expect(cartLink).toHaveTextContent(/cart\s*\(\s*0\s*\)/i);
+        const cartLink = screen.getByRole("link", { name: /^cart/i });
+        expect(cartLink).toHaveTextContent(/cart\s*\(\s*0\s*\)/i);
 
-    await user.click(screen.getByRole("button", { name: /add item/i }));
+        const button = screen.getByRole("button", { name: /add item/i })
+        await user.click(button);
 
-    expect(cartLink).toHaveTextContent(/cart\s*\(\s*2\s*\)/i);
+        expect(cartLink).toHaveTextContent(/cart\s*\(\s*2\s*\)/i);
     });
 });

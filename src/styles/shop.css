@@ -188,7 +188,7 @@ button:active {
     animation: spin 1s linear infinite;
 }
 
-.item-added-alert {
+.item-alert {
     position: absolute;
     width: 1px;
     height: 1px;
